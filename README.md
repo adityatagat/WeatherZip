@@ -1,13 +1,12 @@
 # WeatherZip
 A simple Android Weather App
 
-Android Weather App written in Kotlin designed using Android Architecture Components May 2020 versions. 
+Android Weather App written in Kotlin designed using Android Architecture Components
 
-This app uses:
+This app uses the below libraries:
  - View Model and Live Data
- - Data binding
- - Coroutines
+ - Data Binding
  - Navigation
  - Retrofit for HTTP REST API calls
- - Glide for Network Images
  - Gson for reading JSON data
+ - Glide for Network Images
