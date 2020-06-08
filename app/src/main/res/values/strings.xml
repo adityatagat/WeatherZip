@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">WeatherZip</string>
-    <string name="city">Cincinnati</string>
     <string name="state">Ohio</string>
-    <string name="weather_desc">Bright, Sunny, Hot</string>
     <string name="weather_image">Weather Image</string>
-    <string name="temperature_string">22</string>
-    <string name="temperature_format">%s °C</string>
+    <string name="temperature_format">%s °F</string>
+    <string name="loading_status">Loading Status</string>
+    <string name="zip_code">Zip Code</string>
+    <string name="enter_zip_code">Enter Zip Code</string>
 </resources>

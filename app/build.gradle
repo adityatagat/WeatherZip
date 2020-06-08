@@ -1,18 +1,23 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
     defaultConfig {
         applicationId "com.example.weatherzip"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
@@ -22,6 +27,7 @@ android {
         dataBinding {
             enabled = true
         }
+        buildConfigField "String", "OPEN_WEATHER_API_KEY", "\"e8d40bc83f9460fd1d427b08f3870cdc\""
     }
 
     buildTypes {
@@ -45,8 +51,27 @@ dependencies {
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    //Navigation Jetpack libraries
     implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
+
+    //LiveData for data observers
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+
+    //Google Play Service Library for location API
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+
+    //RetroFit libraries for working with HTTP
+    implementation "com.squareup.retrofit2:retrofit:2.6.0"
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation "com.squareup.retrofit2:converter-gson:2.6.0"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
+
+    //Moshi libraries for JSON conversion
+    implementation "com.squareup.moshi:moshi:1.9.0"
+    implementation "com.squareup.moshi:moshi-kotlin:1.9.0"
+
+    //Glide library for Image display
+    implementation "com.github.bumptech.glide:glide:4.8.0"
 }
