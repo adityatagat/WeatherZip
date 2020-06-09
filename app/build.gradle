@@ -27,7 +27,7 @@ android {
         dataBinding {
             enabled = true
         }
-        buildConfigField "String", "OPEN_WEATHER_API_KEY", "\"e8d40bc83f9460fd1d427b08f3870cdc\""
+        buildConfigField "String", "OPEN_WEATHER_API_KEY", "\"Kxq8-LVdMbndBnsI-hid62Ao46Xe0bPXlfdItGpQXzE\""
     }
 
     buildTypes {

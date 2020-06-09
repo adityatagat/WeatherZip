@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-private const val BASE_URL = "https://api.openweathermap.org/data/2.5/"
+private const val BASE_URL = "https://weather.ls.hereapi.com/weather/1.0/"
 
 val gson = GsonBuilder().create()!!
 val apiClient = OkHttpClient.Builder().addInterceptor(OpenWeatherInterceptor()).build()
@@ -22,8 +22,8 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface WeatherApiService {
-    @GET("weather")
-    fun getWeatherAsync(@Query("zip") zipCode: String): Call<WeatherResponse>
+    @GET("report.json")
+    fun getWeatherAsync(@Query("zipcode") zipCode: String): Call<WeatherResponse>
 }
 
 object WeatherApi {

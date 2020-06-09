@@ -21,24 +21,46 @@
         android:padding="25dp"
         tools:context=".weatherMain.WeatherFragment">
 
-        <EditText
-            android:id="@+id/zipCode"
-            style="@style/AppTheme"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ConstraintLayout2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
-            android:ems="10"
-            android:hint="@string/enter_zip_code"
-            android:importantForAutofill="no"
-            android:inputType="number"
-            android:labelFor="@id/cityText"
+            android:layout_marginBottom="48dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/zipCode"
+                style="@style/AppTheme"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:hint="@string/enter_zip_code"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:labelFor="@id/cityText"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> weatherViewModel.refreshWeather()}"
+                android:text="@android:string/search_go"
+                app:layout_constraintBaseline_toBaselineOf="@+id/zipCode"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
             android:id="@+id/status_image"
@@ -56,13 +78,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="128dp"
             android:layout_marginEnd="32dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/zipCode">
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/cityText"
@@ -75,7 +97,7 @@
                 android:id="@+id/stateText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/state"
+                android:text="@{weatherViewModel.state}"
                 android:textAlignment="viewStart" />
 
             <LinearLayout
@@ -93,7 +115,7 @@
 
                 <TextView
                     android:id="@+id/temperature"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_weight="1"

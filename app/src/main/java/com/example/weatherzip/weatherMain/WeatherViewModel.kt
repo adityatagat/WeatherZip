@@ -1,5 +1,6 @@
 package com.example.weatherzip.weatherMain
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,8 +19,7 @@ enum class WeatherApiStatus {
 
 class WeatherViewModel : ViewModel() {
     companion object {
-        //Zip Code to get Weather for
-        //TODO: Convert to input Text
+        //Zip Code to get Weather
         private const val zipCode: String = "45202"
     }
 
@@ -37,6 +37,8 @@ class WeatherViewModel : ViewModel() {
         get() = _city
 
     private val _state = MutableLiveData<String>()
+    val state: LiveData<String>
+        get() = _state
 
     private val _temperature = MutableLiveData<String>()
     val temperature: LiveData<String>
@@ -53,10 +55,10 @@ class WeatherViewModel : ViewModel() {
 
     init {
         getWeather(zipCode)
-        _city.value = "Cincinnati"
-        _state.value = "Ohio"
-        _temperature.value = "72"
-        _weatherDesc.value = "Bright, Sunny"
+//        _city.value = "Cincinnati"
+//        _state.value = "Ohio"
+//        _temperature.value = "72"
+//        _weatherDesc.value = "Bright, Sunny"
     }
 
     /**
@@ -66,7 +68,7 @@ class WeatherViewModel : ViewModel() {
      */
     private fun getWeather(zipCode: String) {
 
-        WeatherApi.retroFitService.getWeatherAsync(zipCode = zipCode)
+        WeatherApi.retroFitService.getWeatherAsync(zipCode)
             .enqueue(object : Callback<WeatherResponse> {
                 override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
                     _status.value = WeatherApiStatus.ERROR
@@ -76,6 +78,7 @@ class WeatherViewModel : ViewModel() {
                     call: Call<WeatherResponse>,
                     response: Response<WeatherResponse>
                 ) {
+                    Log.i("API Response: ", response.body().toString())
                     response.body()?.let {
                         _status.value = WeatherApiStatus.LOADING
                         createListForView(it)
@@ -86,9 +89,18 @@ class WeatherViewModel : ViewModel() {
     }
 
     private fun createListForView(weatherResponse: WeatherResponse) {
-        _temperature.value = weatherResponse.temperature.dayTemperature.toString()
-        _city.value = weatherResponse.cityName
-        _iconLink.value = weatherResponse.weather[0].icon
-        _weatherDesc.value = weatherResponse.weather[0].description
+        _temperature.value =
+            weatherResponse.Observations.location[0].tempObservations[0].temperature
+        _city.value = weatherResponse.Observations.location[0].city
+        _state.value = weatherResponse.Observations.location[0].state
+        _iconLink.value = weatherResponse.Observations.location[0].tempObservations[0].iconLink
+        _weatherDesc.value =
+            weatherResponse.Observations.location[0].tempObservations[0].description
+    }
+
+    fun refreshWeather() {
+        zipCode.let {
+            this.getWeather(zipCode)
+        }
     }
 }

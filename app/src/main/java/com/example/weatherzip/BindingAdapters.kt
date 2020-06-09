@@ -1,7 +1,10 @@
 package com.example.weatherzip
 
+import android.net.Uri
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -10,8 +13,11 @@ import com.example.weatherzip.weatherMain.WeatherApiStatus
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, iconLink: String?) {
     iconLink?.let {
-        val imgUri = "https://openweathermap.org/img/w/${iconLink}.png"
-        Glide.with(imgView.context).load(imgUri)
+        val url: Uri? = iconLink.toUri().buildUpon()
+            .appendQueryParameter("apiKey", BuildConfig.OPEN_WEATHER_API_KEY).build()
+        Log.i("Glide URL", url.toString())
+        Glide.with(imgView.context)
+            .load(url)
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.loading_animation)
