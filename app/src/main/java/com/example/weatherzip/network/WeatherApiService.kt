@@ -3,8 +3,8 @@ package com.example.weatherzip.network
 import com.example.weatherzip.data.WeatherResponse
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -23,7 +23,7 @@ private val retrofit = Retrofit.Builder()
 
 interface WeatherApiService {
     @GET("report.json")
-    fun getWeatherAsync(@Query("zipcode") zipCode: String): Call<WeatherResponse>
+    fun getWeatherAsync(@Query("zipcode") zipCode: String): Deferred<WeatherResponse>
 }
 
 object WeatherApi {
